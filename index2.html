@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>ACECC TC33 — Advancing AI Education in Civil Engineering</title>
+  <meta name="description" content="ACECC TC33 accelerates AI education in Civil Engineering across ACECC member economies via workshops, guidelines, and shared curricula.">
+
+  <!-- Canonical & robots -->
+  <link rel="canonical" href="https://tc33acecc.github.io/">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ACECC TC33">
+  <meta property="og:title" content="ACECC TC33 — Advancing AI Education in Civil Engineering">
+  <meta property="og:description" content="Advancing AI education in civil engineering across ACECC member economies.">
+  <meta property="og:url" content="https://tc33acecc.github.io/">
+  <meta property="og:image" content="https://tc33acecc.github.io/images/acecc-social-1200x630.png">
+  <meta property="og:image:alt" content="ACECC TC33 wordmark over a civil infrastructure montage">
+
+  <!-- Twitter (optional but harmless even without a Twitter account) -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ACECC TC33 — Advancing AI Education in Civil Engineering">
+  <meta name="twitter:description" content="Workshops, guidelines, and shared curricula across ACECC economies.">
+  <meta name="twitter:image" content="https://tc33acecc.github.io/images/acecc-social-1200x630.png">
+
+  <!-- Theming + PWA-lite -->
+  <meta name="theme-color" content="#0a3d62" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0a3d62" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <!-- Performance -->
+  <link rel="preload" as="image"
+        href="/images/acecc-hero-2560x800.png"
+        imagesrcset="/images/acecc-hero-1280.png 1280w, /images/acecc-hero-1920.png 1920w, /images/acecc-hero-2560x800.png 2560w"
+        imagesizes="100vw">
+
+  <link rel="icon" type="image/png" href="/images/acecc-favicon-512.png" sizes="512x512">
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!-- Organization & Events schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://tc33acecc.github.io/#org",
+        "name": "ACECC TC33",
+        "url": "https://tc33acecc.github.io/",
+        "logo": "https://tc33acecc.github.io/images/acecc-favicon-512.png",
+        "description": "Technical Committee 33 advancing AI education in Civil Engineering across ACECC member economies.",
+        "email": "tc33acecc@gmail.com",
+        "parentOrganization": {
+          "@type": "Organization",
+          "name": "Asian Civil Engineering Coordinating Council (ACECC)",
+          "url": "https://www.acecc-world.org/"
+        },
+        "sameAs": [
+          "https://www.linkedin.com/groups/15186048/"
+        ]
+      },
+      {
+        "@type": "ItemList",
+        "@id": "https://tc33acecc.github.io/#events",
+        "name": "ACECC TC33 Events",
+        "itemListElement": [
+          {
+            "@type": "Event",
+            "name": "Regional Symposium",
+            "eventAttendanceMode": "https://schema.org/MixedEventAttendanceMode",
+            "eventStatus": "https://schema.org/EventScheduled",
+            "startDate": "2025-11-22",
+            "location": {
+              "@type": "Place",
+              "name": "Member Society A",
+              "address": { "@type": "PostalAddress", "addressCountry": "JP" }
+            },
+            "organizer": { "@id": "https://tc33acecc.github.io/#org" },
+            "url": "https://tc33acecc.github.io/events/regional-symposium"
+          },
+          {
+            "@type": "Event",
+            "name": "Technical Committee Meeting",
+            "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
+            "eventStatus": "https://schema.org/EventScheduled",
+            "startDate": "2026-01-15",
+            "organizer": { "@id": "https://tc33acecc.github.io/#org" },
+            "url": "https://tc33acecc.github.io/events/tc-meeting-jan-2026"
+          },
+          {
+            "@type": "Event",
+            "name": "Training Workshop",
+            "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+            "eventStatus": "https://schema.org/EventScheduled",
+            "startDate": "2026-03-03",
+            "location": {
+              "@type": "Place",
+              "name": "TBD",
+              "address": { "@type": "PostalAddress", "addressCountry": "SG" }
+            },
+            "organizer": { "@id": "https://tc33acecc.github.io/#org" },
+            "url": "https://tc33acecc.github.io/events/training-workshop-2026"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap nav-wrap">
+      <a class="brand" href="/" aria-label="ACECC TC33 Home">
+        <!-- 2× larger icon (now 96×96) -->
+        <img src="/images/acecc-favicon-512.png"
+             alt="ACECC TC33 logo"
+             class="brand-mark"
+             width="96" height="96"
+             loading="eager" fetchpriority="high">
+        <span class="brand-text">ACECC TC33</span>
+      </a>
+
+      <button class="menu-toggle" aria-expanded="false" aria-controls="nav">Menu</button>
+
+      <nav id="nav" class="nav" aria-label="Primary">
+        <ul>
+          <li><a href="#about" aria-current="page">About</a></li>
+          <li class="has-children">
+            <button class="submenu-toggle" aria-expanded="false" aria-controls="submenu-members">Members</button>
+            <ul id="submenu-members" class="submenu" hidden>
+              <li><a href="#members">Committee</a></li>
+              <li><a href="#partners">Partners</a></li>
+            </ul>
+          </li>
+          <li><a href="#activities">Activities</a></li>
+          <li><a href="#news">News &amp; Resources</a></li>
+          <li><a href="#events">Events</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a class="cta" href="#join">Join</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" role="banner" aria-label="Introduction">
+    <img
+      src="/images/acecc-hero-1280.png"
+      srcset="/images/acecc-hero-1280.png 1280w, /images/acecc-hero-1920.png 1920w, /images/acecc-hero-2560x800.png 2560w"
+      sizes="100vw"
+      width="2560" height="800"
+      alt="Civil infrastructure collage representing AI in civil engineering"
+      class="hero-bg"
+      loading="eager" fetchpriority="high">
+    <div class="wrap hero-content">
+      <h1>Advancing AI Education in Civil Engineering</h1>
+      <h2>Together we accelerate knowledge exchange and regional impact.</h2>
+
+      <div class="cta-row">
+        <a class="btn primary" href="#activities">Explore Activities</a>
+        <a class="btn" href="#news">Latest News</a>
+      </div>
+    </div>
+  </section>
+
+  <main id="main">
+    <section id="about" class="section">
+      <div class="wrap grid two">
+        <div>
+          <h2>About the Committee</h2>
+          <p>Our committee operates under the Asian Civil Engineering Coordinating Council (ACECC), fostering collaboration in AI education in Civil Engineering across member economies on topics vital to the sustainable built environment.</p>
+          <ul class="checklist">
+            <li>AI technologies and education materials</li>
+            <li>Workshops, symposia, and knowledge sharing</li>
+            <li>Standards, guidelines, and best practices</li>
+          </ul>
+          <p>
+            Join our community on
+            <a href="https://www.linkedin.com/groups/15186048/" target="_blank" rel="noopener">LinkedIn</a>.
+          </p>
+        </div>
+        <div class="card texture">
+          <h3>Mission</h3>
+          <p>To advance Artificial Intelligence (AI) education in Civil Engineering and develop AI-enriched curricula and pedagogical methodologies, nurturing a globally competent engineering workforce across Asia and the Pacific region.</p>
+          <a class="link-arrow" href="#contact">Get in touch</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="news" class="section alt">
+      <div class="wrap">
+        <h2>News &amp; Resources</h2>
+        <div class="grid three">
+          <article class="card">
+            <h3><a href="#">Workshop Series Announced</a></h3>
+            <p>Multi-institutional workshop series launches this fall, featuring invited speakers from ACECC member societies.</p>
+            <a class="link-arrow" href="#">Read more</a>
+          </article>
+          <article class="card">
+            <h3><a href="#">Guideline Draft v1.0</a></h3>
+            <p>Public draft of recommended practices is available for community review and comments.</p>
+            <a class="link-arrow" href="#">Download</a>
+          </article>
+          <article class="card">
+            <h3><a href="#">Newsletter – Q3</a></h3>
+            <p>Highlights from recent activities, funding calls, and upcoming events across ACECC economies.</p>
+            <a class="link-arrow" href="#">Open</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="events" class="section">
+      <div class="wrap">
+        <h2>Events</h2>
+        <div class="events-list">
+          <div class="event">
+            <div class="date"><span class="d">22</span><span class="m">NOV</span></div>
+            <div class="info">
+              <h3><a href="/events/regional-symposium/">Regional Symposium</a></h3>
+              <p>In-person &amp; online • Hosted by Member Society A</p>
+              <p><time datetime="2025-11-22">November 22, 2025</time></p>
+              <a class="link-arrow" href="/events/regional-symposium/">Details</a>
+            </div>
+          </div>
+          <div class="event">
+            <div class="date"><span class="d">15</span><span class="m">JAN</span></div>
+            <div class="info">
+              <h3><a href="/events/tc-meeting-jan-2026/">Technical Committee Meeting</a></h3>
+              <p>Virtual • Agenda and materials forthcoming</p>
+              <p><time datetime="2026-01-15">January 15, 2026</time></p>
+              <a class="link-arrow" href="/events/tc-meeting-jan-2026/">Agenda</a>
+            </div>
+          </div>
+          <div class="event">
+            <div class="date"><span class="d">03</span><span class="m">MAR</span></div>
+            <div class="info">
+              <h3><a href="/events/training-workshop-2026/">Training Workshop</a></h3>
+              <p>Hands-on session with shared resources and case studies</p>
+              <p><time datetime="2026-03-03">March 3, 2026</time></p>
+              <a class="link-arrow" href="/events/training-workshop-2026/">Register</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!--
+    <section id="stats" class="section stats alt">
+      <div class="wrap grid four">
+        <div class="stat"><div class="num">14</div><div class="lab">Member Economies</div></div>
+        <div class="stat"><div class="num">20+</div><div class="lab">Years of Impact</div></div>
+        <div class="stat"><div class="num">30+</div><div class="lab">Technical Committees</div></div>
+        <div class="stat"><div class="num">∞</div><div class="lab">Collaboration</div></div>
+      </div>
+    </section>
+    -->
+
+    <section id="members" class="section">
+      <div class="wrap">
+        <h2>Committee Members</h2>
+        <div class="grid three">
+          <div class="card person">
+            <div class="avatar" aria-hidden="true"></div>
+            <h3>Chair</h3>
+            <p>Affiliation • Country/Economy</p>
+          </div>
+          <div class="card person">
+            <div class="avatar" aria-hidden="true"></div>
+            <h3>Co-Chair</h3>
+            <p>Affiliation • Country/Economy</p>
+          </div>
+          <div class="card person">
+            <div class="avatar" aria-hidden="true"></div>
+            <h3>Secretary</h3>
+            <p>Affiliation • Country/Economy</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section alt">
+      <div class="wrap grid two">
+        <div>
+          <h2>Contact</h2>
+          <p>Email: <a href="mailto:tc33acecc@gmail.com">tc33acecc@gmail.com</a></p>
+          <p>LinkedIn: <a href="https://www.linkedin.com/groups/15186048/" target="_blank" rel="noopener">ACECC TC33 Group</a></p>
+          <p>Address: ACECC Secretariat or Host Institution</p>
+        </div>
+        <div class="card">
+          <h3 id="join">How to Join</h3>
+          <p>Participation is open to representatives from ACECC member societies and invited partners. Reach out to learn more.</p>
+          <a class="btn primary" href="https://www.linkedin.com/groups/15186048/" target="_blank" rel="noopener">Get Started</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-wrap">
+      <p>© ACECC TC33 • Built for GitHub Pages</p>
+      <nav aria-label="Footer">
+        <a href="#about">About</a>
+        <a href="#news">News</a>
+        <a href="#events">Events</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Progressive enhancement & accessibility helpers -->
+  <script>
+    (function () {
+      const q = s => document.querySelector(s);
+      const menuBtn = q('.menu-toggle');
+      const nav = q('#nav');
+      const submenuBtn = q('.submenu-toggle');
+      const submenu = q('#submenu-members');
+
+      // Mobile nav toggle
+      menuBtn?.addEventListener('click', () => {
+        const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
+        menuBtn.setAttribute('aria-expanded', String(!expanded));
+        nav.toggleAttribute('data-open');
+      });
+
+      // Submenu toggle
+      if (submenuBtn && submenu) {
+        submenuBtn.addEventListener('click', () => {
+          const expanded = submenuBtn.getAttribute('aria-expanded') === 'true';
+          submenuBtn.setAttribute('aria-expanded', String(!expanded));
+          submenu.hidden = expanded;
+        });
+        submenuBtn.addEventListener('keydown', e => {
+          if (e.key === 'Escape') {
+            submenu.hidden = true;
+            submenuBtn.setAttribute('aria-expanded', 'false');
+            submenuBtn.focus();
+          }
+        });
+      }
+
+      // Respect reduced motion
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('reduce-motion');
+      }
+    }());
+  </script>
+
+  <!-- Your site JS (deferred) -->
+  <script src="/js/script.js" defer></script>
+
+  <!-- Optional: register a service worker later for offline events pages -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(()=>{});
+    }
+  </script>
+</body>
+</html>
