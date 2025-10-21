@@ -73,7 +73,15 @@ a:hover{text-decoration:underline}
 .stats .num{font-size:28px;font-weight:800;color:var(--primary)}
 .stats .lab{color:var(--muted)}
 
-.person .avatar{height:160px;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--accent));opacity:.2;margin-bottom:8px}
+.person .avatar {
+  height:140px;        /* adjust as desired */
+  border-radius:12px;
+  object-fit:cover;
+  width:100%;
+  margin-bottom:12px;
+  opacity:1;           /* ensure photo is fully visible */
+  background:none;     /* remove gradient overlay */
+}
 
 .site-footer{border-top:1px solid var(--border);background:#fff}
 .footer-wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 0}
