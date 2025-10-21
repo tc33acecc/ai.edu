@@ -74,14 +74,15 @@ a:hover{text-decoration:underline}
 .stats .lab{color:var(--muted)}
 
 .person .avatar {
-  height:140px;        /* adjust as desired */
+  width:100%;
+  height:180px;      /* smaller, adjust 160–200px if you prefer */
   border-radius:12px;
   object-fit:cover;
-  width:100%;
   margin-bottom:12px;
-  opacity:1;           /* ensure photo is fully visible */
-  background:none;     /* remove gradient overlay */
+  opacity:1;
+  background:none;
 }
+
 
 .site-footer{border-top:1px solid var(--border);background:#fff}
 .footer-wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 0}
