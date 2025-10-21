@@ -74,7 +74,7 @@ a:hover{text-decoration:underline}
 .stats .lab{color:var(--muted)}
 
 .person .avatar {
-  width:100%;
+  width:80%;
   height:auto;          /* default size for desktops */
   object-fit:cover;
   border-radius:12px;
