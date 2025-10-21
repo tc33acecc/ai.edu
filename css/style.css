@@ -75,13 +75,33 @@ a:hover{text-decoration:underline}
 
 .person .avatar {
   width:100%;
-  height:180px;      /* smaller, adjust 160–200px if you prefer */
-  border-radius:12px;
+  height:180px;          /* default size for desktops */
   object-fit:cover;
+  border-radius:12px;
   margin-bottom:12px;
-  opacity:1;
   background:none;
+  opacity:1;             /* keep full clarity */
+  transition:transform 0.3s ease; /* optional hover effect */
 }
+
+/* Optional hover style for a polished feel */
+.person .avatar:hover {
+  transform:scale(1.03);
+}
+
+/* Responsive adjustments */
+@media (max-width:980px) {
+  .person .avatar {
+    height:160px;        /* slightly smaller on tablets */
+  }
+}
+
+@media (max-width:600px) {
+  .person .avatar {
+    height:200px;        /* taller on small screens (auto-fit) */
+  }
+}
+
 
 
 .site-footer{border-top:1px solid var(--border);background:#fff}
