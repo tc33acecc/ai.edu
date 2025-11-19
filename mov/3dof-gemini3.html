@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3-DOF Modal Analysis - Realtime Simulation</title>
+    <!-- MathJax for rendering equations -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f5f7fa;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+        }
+        .card {
+            background: white;
+            padding: 20px 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 { margin-top: 0; color: #2c3e50; }
+        
+        .math-container {
+            background: #fafafa;
+            border: 1px solid #eee;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            color: #444;
+        }
+
+        /* SVG Containers */
+        .anim-container {
+            position: relative;
+            border: 1px solid #e1e4e8;
+            border-radius: 8px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: #666;
+        }
+        .dot { width: 10px; height: 10px; display: inline-block; border-radius: 50%; margin-right: 5px; }
+        
+        /* Graph Styles */
+        #graphCanvas {
+            background-color: #111;
+            border-top: 1px solid #333;
+        }
+        path.signal-line {
+            fill: none;
+            stroke: #00ffcc;
+            stroke-width: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>3-DOF Fixed-Base Modal Decomposition</h1>
+    
+    <div class="math-container">
+        $$ \text{Equation of Motion: } [M]\{\ddot{u}\} + [C]\{\dot{u}\} + [K]\{u\} = -[M]\{1\}\ddot{u}_g(t) $$
+        $$ \text{Total Relative Displacement: } \{u(t)\} \approx \sum_{n=1}^3 \{\phi\}_n q_n(t) $$
+    </div>
+
+    <div class="anim-container">
+        <svg id="mainSvg" width="850" height="400" viewBox="0 0 850 400">
+            <!-- Definitions for gradients/shapes -->
+            <defs>
+                <marker id="arrow" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">
+                  <path d="M0,0 L0,6 L9,3 z" fill="#f00" />
+                </marker>
+            </defs>
+
+            <!-- Ground Line (Visual Reference) -->
+            <line x1="0" y1="350" x2="850" y2="350" stroke="#ddd" stroke-width="1" />
+
+            <!-- === LEFT: TOTAL RESPONSE === -->
+            <g transform="translate(200, 350)">
+                <text x="0" y="-320" text-anchor="middle" font-weight="bold" fill="#333">Total Response</text>
+                <text x="0" y="-300" text-anchor="middle" font-size="12" fill="#777">\( \{u\}_{total} \)</text>
+                <!-- Base Plate -->
+                <g id="base-total">
+                    <rect x="-60" y="0" width="120" height="10" fill="#333" rx="2"/>
+                    <path d="M-60,10 L-70,20 M-40,10 L-50,20 M-20,10 L-30,20 M0,10 L-10,20 M20,10 L10,20 M40,10 L30,20 M60,10 L50,20" stroke="#999" stroke-width="2"/>
+                </g>
+                <!-- Structure Group -->
+                <g id="struct-total"></g>
+            </g>
+
+            <!-- === MATH SYMBOLS === -->
+            <text x="380" y="200" font-size="24" fill="#aaa">=</text>
+            <text x="530" y="200" font-size="24" fill="#aaa">+</text>
+            <text x="680" y="200" font-size="24" fill="#aaa">+</text>
+
+            <!-- === RIGHT: MODES === -->
+            
+            <!-- Mode 1 -->
+            <g transform="translate(455, 350) scale(0.6)">
+                <text x="0" y="-420" text-anchor="middle" font-size="20" font-weight="bold" fill="#e74c3c">Mode 1</text>
+                <text x="0" y="-380" text-anchor="middle" font-size="18" fill="#666">\( q_1(t)\{\phi\}_1 \)</text>
+                <g id="base-m1">
+                    <rect x="-60" y="0" width="120" height="10" fill="#7f8c8d" />
+                </g>
+                <g id="struct-m1"></g>
+            </g>
+
+            <!-- Mode 2 -->
+            <g transform="translate(605, 350) scale(0.6)">
+                <text x="0" y="-420" text-anchor="middle" font-size="20" font-weight="bold" fill="#3498db">Mode 2</text>
+                <text x="0" y="-380" text-anchor="middle" font-size="18" fill="#666">\( q_2(t)\{\phi\}_2 \)</text>
+                <g id="base-m2">
+                    <rect x="-60" y="0" width="120" height="10" fill="#7f8c8d" />
+                </g>
+                <g id="struct-m2"></g>
+            </g>
+
+            <!-- Mode 3 -->
+            <g transform="translate(755, 350) scale(0.6)">
+                <text x="0" y="-420" text-anchor="middle" font-size="20" font-weight="bold" fill="#27ae60">Mode 3</text>
+                <text x="0" y="-380" text-anchor="middle" font-size="18" fill="#666">\( q_3(t)\{\phi\}_3 \)</text>
+                <g id="base-m3">
+                    <rect x="-60" y="0" width="120" height="10" fill="#7f8c8d" />
+                </g>
+                <g id="struct-m3"></g>
+            </g>
+        </svg>
+        
+        <!-- Ground Motion Graph -->
+        <svg id="graphCanvas" width="850" height="80" viewBox="0 0 850 80">
+            <text x="10" y="20" fill="#00ffcc" font-size="10" font-family="monospace">Ground Accel (White Noise)</text>
+            <path id="signalPath" class="signal-line" d="" />
+            <line x1="0" y1="40" x2="850" y2="40" stroke="#333" stroke-dasharray="4" />
+        </svg>
+    </div>
+
+    <div class="legend">
+        <span><span class="dot" style="background:#333"></span>Total System</span>
+        <span><span class="dot" style="background:#e74c3c"></span>Mode 1 (Fundamental)</span>
+        <span><span class="dot" style="background:#3498db"></span>Mode 2 (Whiplash)</span>
+        <span><span class="dot" style="background:#27ae60"></span>Mode 3 (Jitter)</span>
+    </div>
+</div>
+
+<script>
+    // === PHYSICS CONSTANTS ===
+    // Mass and Stiffness implied by frequencies/shapes for this visualization
+    // Frequencies (rad/s)
+    const W_n = [2.5, 6.0, 11.0]; 
+    const ZETA = 0.05; // 5% Damping for all modes
+
+    // Mode Shapes (Phi matrix columns) - Normalized to mass (approx)
+    const PHI = [
+        [0.30,  0.75,  1.00], // Mode 1 (All pos)
+        [0.80,  0.50, -1.00], // Mode 2 (1 crossing)
+        [1.00, -1.50,  1.00]  // Mode 3 (2 crossings)
+    ];
+
+    // Modal Participation Factors (Gamma)
+    // Represents how much the ground excites each mode
+    const GAMMA = [-1.2, -0.6, -0.3]; 
+
+    // Simulation State
+    // q: displacement, v: velocity, a: acceleration for each mode
+    let modes = [
+        { q: 0, v: 0, a: 0 },
+        { q: 0, v: 0, a: 0 },
+        { q: 0, v: 0, a: 0 }
+    ];
+
+    // Ground Motion State
+    let groundAccel = 0;
+    let groundVel = 0;
+    let groundDisp = 0;
+    
+    // Visualization Config
+    const DISP_SCALE = 100;  // Exaggerate displacement for screen
+    const FLOOR_H = 80;
+    
+    // Signal Graph Buffer
+    const MAX_POINTS = 300;
+    let signalHistory = new Array(MAX_POINTS).fill(0);
+
+    // === BUILD SVG ELEMENTS ===
+    function buildBuilding(groupId, color) {
+        const g = document.getElementById(groupId);
+        for (let i = 0; i < 3; i++) {
+            // Column
+            const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            line.setAttribute("stroke", "#555");
+            line.setAttribute("stroke-width", "4");
+            line.setAttribute("id", `${groupId}-col-${i}`);
+            g.appendChild(line);
+            
+            // Mass
+            const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+            rect.setAttribute("width", "50");
+            rect.setAttribute("height", "20");
+            rect.setAttribute("x", "-25");
+            rect.setAttribute("y", "-10");
+            rect.setAttribute("rx", "4");
+            rect.setAttribute("fill", color);
+            rect.setAttribute("stroke", "rgba(0,0,0,0.2)");
+            rect.setAttribute("id", `${groupId}-mass-${i}`);
+            g.appendChild(rect);
+        }
+    }
+
+    buildBuilding("struct-total", "#333");
+    buildBuilding("struct-m1", "#e74c3c");
+    buildBuilding("struct-m2", "#3498db");
+    buildBuilding("struct-m3", "#27ae60");
+
+    // === NUMERICAL INTEGRATION (Newmark-Beta / Symplectic Euler) ===
+    // We use a small fixed timestep for physics stability
+    const dt = 1/60; 
+    let time = 0;
+
+    function updatePhysics() {
+        // 1. Generate Ground Motion (Band-Limited White Noise)
+        // We add a random kick, but dampen it so the ground doesn't drift away to infinity
+        const noise = (Math.random() - 0.5) * 100; 
+        // Apply a spring-damper to the ground itself to keep it centered (High-pass filter effect)
+        const k_g = 2.0; 
+        const c_g = 1.0;
+        const groundForce = noise - c_g*groundVel - k_g*groundDisp;
+        
+        groundAccel = groundForce; // Assume Mass_ground = 1 for convenience
+        groundVel += groundAccel * dt;
+        groundDisp += groundVel * dt;
+
+        // 2. Update Modes (SDOF Oscillators)
+        // Equation: q_doubledot + 2*zeta*w*q_dot + w^2*q = Gamma * groundAccel
+        // Note: The forcing function includes Gamma. 
+        // Since we want relative displacement, Force = -Gamma * GroundAccel
+        
+        for (let i = 0; i < 3; i++) {
+            let m = modes[i];
+            let w = W_n[i];
+            let forcing = GAMMA[i] * groundAccel; 
+
+            // Symplectic Euler Integration
+            let dampingForce = 2 * ZETA * w * m.v;
+            let springForce = w * w * m.q;
+            
+            m.a = forcing - dampingForce - springForce;
+            m.v += m.a * dt;
+            m.q += m.v * dt;
+        }
+
+        // 3. Update Signal Graph Array
+        signalHistory.push(groundAccel);
+        if (signalHistory.length > MAX_POINTS) signalHistory.shift();
+    }
+
+    // === RENDER LOOP ===
+    function render() {
+        // Run Physics
+        updatePhysics();
+
+        // -- 1. Update Ground Base Positions --
+        // The ground moves visibly
+        const screenGroundX = groundDisp * 10; // Scaling for screen
+        document.getElementById("base-total").setAttribute("transform", `translate(${screenGroundX}, 0)`);
+        
+        // For decomposed modes, we also show the base moving to indicate the forcing source
+        // though mathematically q is relative.
+        const baseIds = ["base-m1", "base-m2", "base-m3"];
+        baseIds.forEach(id => {
+            document.getElementById(id).setAttribute("transform", `translate(${screenGroundX}, 0)`);
+        });
+
+        // -- 2. Update Structure Geometry --
+        
+        // We need to compute the relative displacements for every floor
+        // floorRel[floorIndex]
+        let totalRel = [0, 0, 0];
+        let modeRel = [[0,0,0], [0,0,0], [0,0,0]]; // [modeIndex][floorIndex]
+
+        for(let f=0; f<3; f++) {
+            // For each floor, sum contributions from all 3 modes
+            for(let m=0; m<3; m++) {
+                let disp = modes[m].q * PHI[m][f];
+                modeRel[m][f] = disp;
+                totalRel[f] += disp;
+            }
+        }
+
+        // Helper to update specific building SVG
+        const updateBuildingSvg = (groupId, displacements, baseX) => {
+            let prevX = baseX;
+            let prevY = 0; // Base is at 0 relative to group
+
+            for(let i=0; i<3; i++) {
+                // Vis Displacement = Base + Relative * Scale
+                let rel = displacements[i] * DISP_SCALE;
+                let absX = baseX + rel;
+                let absY = -(i+1)*FLOOR_H;
+
+                // Update Mass
+                const mass = document.getElementById(`${groupId}-mass-${i}`);
+                mass.setAttribute("transform", `translate(${absX}, ${absY})`);
+
+                // Update Column (from prev mass/base to current mass)
+                const col = document.getElementById(`${groupId}-col-${i}`);
+                col.setAttribute("x1", prevX);
+                col.setAttribute("y1", prevY);
+                col.setAttribute("x2", absX);
+                col.setAttribute("y2", absY);
+
+                prevX = absX;
+                prevY = absY;
+            }
+        };
+
+        // Update Visuals
+        updateBuildingSvg("struct-total", totalRel, screenGroundX);
+        updateBuildingSvg("struct-m1", modeRel[0], screenGroundX);
+        updateBuildingSvg("struct-m2", modeRel[1], screenGroundX);
+        updateBuildingSvg("struct-m3", modeRel[2], screenGroundX);
+
+        // -- 3. Render Signal Graph --
+        const pathEl = document.getElementById("signalPath");
+        // Map signal history to path 'd' string
+        // X goes 0 to 850, Y centered at 40, scale magnitude
+        const stepX = 850 / MAX_POINTS;
+        let dStr = "M0,40";
+        
+        for(let i=0; i<signalHistory.length; i++) {
+            const x = i * stepX;
+            // Scale acceleration for view (invert Y because SVG Y is down)
+            const y = 40 - (signalHistory[i] * 2); 
+            dStr += ` L${x},${y}`;
+        }
+        pathEl.setAttribute("d", dStr);
+
+        requestAnimationFrame(render);
+    }
+
+    // Start
+    render();
+
+</script>
+
+</body>
+</html>
